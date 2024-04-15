@@ -3,7 +3,7 @@
 
 
 #define LED_PIN 6 // 将数据线连接到Arduino的6号引脚
-#define LED_COUNT 64 // WS2812 8x8共有64个LED
+#define LED_COUNT 64 * 4 // WS2812 8x8共有64个LED
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -14,13 +14,13 @@ void setup() {
 }
 
 void loop() {
-  // Serial.println("Hello World!");
-  // delay(1000);
-    // 设置每个LED的颜色为红色
   for(int i=0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, strip.Color(255, 255, 255)); // (R, G, B)
+    strip.setPixelColor(i, strip.Color(255, 255, 255)); // 设置当前LED为白色
+    strip.show(); // 显示当前LED的颜色
+    delay(50); // 延迟一段时间，让LED保持亮起状态
+    strip.setPixelColor(i, strip.Color(0, 0, 0)); // 关闭当前LED
+    strip.show(); // 显示关闭当前LED
+    delay(50); // 延迟一段时间，让LED保持熄灭状态
   }
-  strip.show(); // 显示颜色
-  delay(500); // 延迟500毫秒
 }
 
