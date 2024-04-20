@@ -41,15 +41,4 @@ void ShowMessage(char *message, int len, uint32_t color)
 
 void loop() {
     ShowMessage("BOOT", 4, matrix->Color(255, 0, 255) );
-    // char text[7];
-    // // Display the number '12345678' at coordinates (0,0)
-    // matrix->clear(); // Clear the display
-    // matrix->setCursor(0, 0); // Set the cursor position
-    // matrix->print("1"); // Display the number
-    // matrix->show(); // Update the display
-    // delay(1000); // Delay for 1 second
-    // leds[1].setHSV(255,255,255);
-    // leds[2].setHSV(255,255,255);
-    // FastLED.show();
-
 }
