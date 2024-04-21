@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
+#include <my_font.h>
 #include <FastLED_NeoMatrix.h>
 
 #define MATRIXWIDTH         8
@@ -14,18 +15,13 @@
 
 CRGB leds[NUM_LEDS];
 
-const uint32_t ledarray0[] PROGMEM = {
-    //    padding bits   R   G  B
-    // 0x       00       00  00 00
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x000000FF, 0x00000000, 0x00000000, 0x000000FF, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x000000FF, 0x000000FF, 0x000000FF, 0x000000FF, 0x000000FF, 0x00000000, 
-    0x00000000, 0x00000000, 0x000000FF, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-};
+int setCursor(int row, int col){
+    int num_pix_each_col = 8;
+    int adjust_row = row + 1;
+    int adjust_col = col + 1;
+    int index = adjust_col * num_pix_each_col - adjust_row;
+    return index;
+}
 
 void setup() {
     Serial.begin(115200);
@@ -35,9 +31,20 @@ void setup() {
 }
 
 void loop() {
-    for(int i = 0; i<NUM_LEDS; i++){
-        leds[i] = pgm_read_dword(&(ledarray0[i]));
+    // Print digit0Bitmap at (0, 0)
+    int pixelIndex = 0;
+    for (int i = 0; i < 8; i++) {
+        uint8_t byte = pgm_read_byte(digitBitmaps[0] + i);
+        for (int j = 0; j < 8; j++) {
+        if (bitRead(byte, 7 - j)){
+            leds[pixelIndex] = CRGB::White;
+        } else {
+            leds[pixelIndex] = CRGB::Black;
+        }
+        pixelIndex++;
+        }
     }
+
     FastLED.show();
 }
 
