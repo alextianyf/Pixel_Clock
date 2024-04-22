@@ -15,12 +15,15 @@
 
 CRGB leds[NUM_LEDS];
 
-int setCursor(int row, int col){
-    int num_pix_each_col = 8;
-    int adjust_row = row + 1;
-    int adjust_col = col + 1;
-    int index = adjust_col * num_pix_each_col - adjust_row;
-    return index;
+//TODO: Need to update function so it could display the selected number
+void display_message(int row, int col){
+    int size = sizeof(digitBitmaps)/sizeof(digitBitmaps[0]);
+    int index = 0;
+    for (int i = col; i<(size+col); i++){
+        uint8_t bitmap = pgm_read_byte(&digitBitmaps[index]);
+        maps[i] = (bitmap << row);
+        index = index + 1;
+    }
 }
 
 void setup() {
@@ -31,20 +34,21 @@ void setup() {
 }
 
 void loop() {
+    display_message(2,4);
     // Print digit0Bitmap at (0, 0)
     int pixelIndex = 0;
     for (int i = 0; i < 8; i++) {
-        uint8_t byte = pgm_read_byte(digitBitmaps[0] + i);
+        uint8_t byte = maps[i];
         for (int j = 0; j < 8; j++) {
-        if (bitRead(byte, 7 - j)){
-            leds[pixelIndex] = CRGB::White;
-        } else {
-            leds[pixelIndex] = CRGB::Black;
-        }
+            if (bitRead(byte, 7 - j)){
+                leds[pixelIndex] = CRGB::White;
+            } else {
+                leds[pixelIndex] = CRGB::Black;
+            }
         pixelIndex++;
         }
     }
 
+
     FastLED.show();
 }
-
