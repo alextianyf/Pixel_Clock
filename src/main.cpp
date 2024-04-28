@@ -4,7 +4,6 @@
 #include <FastLED_NeoMatrix.h>
 #include <Wire.h>
 #include <myDS3231.h>
-#include <DS3231.h>
 
 #define MATRIXWIDTH         8
 #define MATRIXHEIGHT        8
