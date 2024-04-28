@@ -2,6 +2,9 @@
 #include <FastLED.h>
 #include <my_font.h>
 #include <FastLED_NeoMatrix.h>
+#include <Wire.h>
+#include <myDS3231.h>
+#include <DS3231.h>
 
 #define MATRIXWIDTH         8
 #define MATRIXHEIGHT        8
@@ -28,27 +31,32 @@ void display_message(int row, int col){
 
 void setup() {
     Serial.begin(115200);
+    ds3231_init();
     FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     FastLED.setBrightness(100);
     FastLED.clear();
 }
 
 void loop() {
-    display_message(2,4);
-    // Print digit0Bitmap at (0, 0)
-    int pixelIndex = 0;
-    for (int i = 0; i < 8; i++) {
-        uint8_t byte = maps[i];
-        for (int j = 0; j < 8; j++) {
-            if (bitRead(byte, 7 - j)){
-                leds[pixelIndex] = CRGB::White;
-            } else {
-                leds[pixelIndex] = CRGB::Black;
-            }
-        pixelIndex++;
-        }
-    }
+    get_time();
+    delay(1000);
 
 
-    FastLED.show();
+    // display_message(2,4);
+    // // Print digit0Bitmap at (0, 0)
+    // int pixelIndex = 0;
+    // for (int i = 0; i < 8; i++) {
+    //     uint8_t byte = maps[i];
+    //     for (int j = 0; j < 8; j++) {
+    //         if (bitRead(byte, 7 - j)){
+    //             leds[pixelIndex] = CRGB::White;
+    //         } else {
+    //             leds[pixelIndex] = CRGB::Black;
+    //         }
+    //     pixelIndex++;
+    //     }
+    // }
+
+
+    // FastLED.show();
 }
