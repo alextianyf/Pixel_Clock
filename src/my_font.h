@@ -1,6 +1,5 @@
 #include <Arduino.h>
-#include <FastLED.h>
-#include <FastLED_NeoMatrix.h>
+
 // NOTE: One Pixel Number should use 3x5 space
 uint8_t maps[8]  = {
     // 0
@@ -14,9 +13,54 @@ uint8_t maps[8]  = {
         0b00000000
 };
 
-const uint8_t digitBitmaps[3] PROGMEM = {
-    // 0
-    0b00011111,
+const uint8_t digitBitmaps[10][3] PROGMEM = {
+    // *Number 0
+    {0b00011111,
     0b00010001,
+    0b00011111,},
+
+    // *Number 1
+    {0b00010001,
     0b00011111,
+    0b00010000,},
+    
+    //*Number 2
+    {0b00011101,
+    0b00010101,
+    0b00010111,},
+
+    //*Number 3
+    {0b00010101,
+    0b00010101,
+    0b00011111,},
+
+    //*Number 4
+    {0b00000111,
+    0b00000100,
+    0b00011111,},
+
+    //*Number 5
+    {0b00010111,
+    0b00010101,
+    0b00011101,},
+
+    //*Number 6
+    {0b00011111,
+    0b00010101,
+    0b00011101,},
+
+    //*Number 7
+    {0b00000001,
+    0b00000001,
+    0b00011111,},
+
+    //*Number 8
+    {0b00011111,
+    0b00010101,
+    0b00011111,},
+
+    //*Number 9
+    {0b00010111,
+    0b00010101,
+    0b00011111,},
 };
