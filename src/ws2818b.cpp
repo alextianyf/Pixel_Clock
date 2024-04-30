@@ -29,7 +29,7 @@ void load_num(int num, int row, int col){
     @param row: selected row for displaying.
     @param col: selected col for displaying
     */
-   
+
     //get the width of the number.
     //3x5 size of number is used, the width should be 3 in this case. 
     int num_width = sizeof(digitBitmaps[num])/sizeof(digitBitmaps[num][0]);
