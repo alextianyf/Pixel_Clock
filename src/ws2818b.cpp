@@ -50,6 +50,9 @@ void load_num(int num, int row, int col){
 
 }
 
+//TODO: With the load_num function, create a display_num interface function.
+//! The test() function only display number on the first 8x8 ws2818b, the code need to be polished.
+
 void test(){
     load_num(0,1,4);
     // Print digit0Bitmap at (0, 0)
